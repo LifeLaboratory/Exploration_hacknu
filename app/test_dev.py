@@ -20,6 +20,6 @@ class TestAitu(TestCase):
     def test_dev_2(self):
         Processor().swipe({
             'id_first': '1',
-            'id_second': '2',
+            'id_second': '3',
             'status': True,
         })

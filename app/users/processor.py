@@ -58,7 +58,7 @@ class Processor:
         params = {
             'id': data.get('id'),
         }
-        return self.db.exec_by_file('get_next_user.sql', params)
+        return self.db.exec_by_file('get_next_user.sql', params)[0]
 
     def get_profile(self, data):
         params = {
