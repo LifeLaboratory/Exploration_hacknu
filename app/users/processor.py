@@ -1,5 +1,4 @@
 from app.base.provider import Provider
-from app.base.helper import create_session
 
 
 class Processor:

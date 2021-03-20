@@ -1,7 +1,6 @@
 from flask import request, jsonify
-from app import app
 from app.users.processor import Processor
-from app.base.helper import header_option, session_to_id_user
+from app.base.helper import header_option
 
 PREFIX = '/api/user'
 
