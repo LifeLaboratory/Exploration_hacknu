@@ -55,3 +55,8 @@ def get_meeting():
         return jsonify({}), header_option()
     data = {'id': check_session(request.headers)}
     return jsonify(Processor().get_meeting(data), header_option())
+
+
+@app.route('/test', methods=['GET', 'OPTIONS'])
+def test():
+    return jsonify(True, header_option())
