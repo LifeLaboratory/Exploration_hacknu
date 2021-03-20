@@ -1,5 +1,6 @@
 from unittest import TestCase
 from app.users.processor import Processor
+from pprint import pprint
 
 
 class TestAitu(TestCase):
@@ -18,14 +19,11 @@ class TestAitu(TestCase):
         })
 
     def test_dev_2(self):
-        Processor().swipe({
-            'id_first': '1',
-            'id_second': '3',
-            'status': True,
-        })
+        pprint(Processor().get_next_user({
+            'id': '1'
+        }))
 
     def test_dev_3(self):
-        from pprint import pprint
         pprint(Processor().get_meeting({
             'id': '4',
         }))
