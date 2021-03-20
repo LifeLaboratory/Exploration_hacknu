@@ -20,9 +20,17 @@ class Processor:
         user = self.db.exec_by_file('select_user.sql', params)
         if not user:
             self.db.exec_by_file('insert_user.sql', params)
-            return self.get_profile(params)
+            paramsss = self.get_profile(params)
+            paramsss['status'] = 'profile'
+            return paramsss
+        if self.get_meeting(params):
+            paramsss = self.get_meeting(params)
+            paramsss['status'] = 'meeting'
+            return paramsss
         self.db.exec_by_file('update_lat_log.sql', params)
-        return self.get_next_user(params)
+        paramsss = self.get_next_user(params)
+        paramsss['status'] = 'search'
+        return paramsss
 
     def get_meeting(self, data):
         params = {
