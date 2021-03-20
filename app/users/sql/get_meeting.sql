@@ -26,7 +26,7 @@ json_build_object(
                     'longitude', p.longitude
     ),
     'datetime', m.datetime
-)
+) meeting_info
 
 from
 

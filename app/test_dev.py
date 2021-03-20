@@ -27,5 +27,5 @@ class TestAitu(TestCase):
     def test_dev_3(self):
         from pprint import pprint
         pprint(Processor().get_meeting({
-            'id': '6',
+            'id': '3',
         }))

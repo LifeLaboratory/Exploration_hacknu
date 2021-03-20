@@ -30,7 +30,7 @@ class Processor:
         }
         meeting = self.db.exec_by_file('get_meeting.sql', params)
         if meeting:
-            return meeting[0]
+            return meeting[0].get('meeting_info')
 
     def swipe(self, data):
         params = {
