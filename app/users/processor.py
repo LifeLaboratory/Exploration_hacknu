@@ -37,15 +37,17 @@ class Processor:
                 'id_first': data.get('id_second'),
                 'id_second': data.get('id'),
             }
-            status = self.db.exec_by_file('check_swipe.sql', params) or False
+            status = self.db.exec_by_file('check_swipe.sql', params)
 
             if status:
+                place_info = self.db.exec_by_file('get_place.sql', {})[0]
                 params = {
                     'id_first': data.get('id'),
                     'id_second': data.get('id_second'),
-                    'id_place': self.db.exec_by_file('get_place.sql', params)
+                    'id_place': place_info.get('id_place')
                 }
-                return self.db.exec_by_file('insert_meeting.sql', params)
+                self.db.exec_by_file('insert_meeting.sql', params)
+                return place_info
 
         params = {
             'id': data.get('id'),
