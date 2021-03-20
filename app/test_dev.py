@@ -23,3 +23,9 @@ class TestAitu(TestCase):
             'id_second': '3',
             'status': True,
         })
+
+    def test_dev_3(self):
+        from pprint import pprint
+        pprint(Processor().get_meeting({
+            'id': '6',
+        }))

@@ -24,6 +24,14 @@ class Processor:
         self.db.exec_by_file('update_lat_log.sql', params)
         return True
 
+    def get_meeting(self, data):
+        params = {
+            'id': data.get('id'),
+        }
+        meeting = self.db.exec_by_file('get_meeting.sql', params)
+        if meeting:
+            return meeting[0]
+
     def swipe(self, data):
         params = {
             'id_first': data.get('id'),
@@ -47,7 +55,8 @@ class Processor:
                     'id_place': place_info.get('id_place')
                 }
                 self.db.exec_by_file('insert_meeting.sql', params)
-                return place_info
+
+                return self.get_meeting({'id': data.get('id')})
 
         params = {
             'id': data.get('id'),
