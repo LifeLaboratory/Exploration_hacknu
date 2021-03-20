@@ -38,7 +38,7 @@ def swipe():
     data = {'id': check_session(request.headers)}
     if request.json:
         data.update(request.json)
-    return jsonify(Processor().swipe(data), header_option())
+    return jsonify(Processor().swipe(data)), header_option()
 
 
 @app.route(PREFIX + '/get_next_user', methods=['GET', 'OPTIONS'])
@@ -46,7 +46,7 @@ def get_next_user():
     if request.method == 'OPTIONS':
         return jsonify({}), header_option()
     data = {'id': check_session(request.headers)}
-    return jsonify(Processor().get_next_user(data), header_option())
+    return jsonify(Processor().get_next_user(data)), header_option()
 
 
 @app.route(PREFIX + '/get_meeting', methods=['GET', 'OPTIONS'])
@@ -54,4 +54,4 @@ def get_meeting():
     if request.method == 'OPTIONS':
         return jsonify({}), header_option()
     data = {'id': check_session(request.headers)}
-    return jsonify(Processor().get_meeting(data), header_option())
+    return jsonify(Processor().get_meeting(data)), header_option()
