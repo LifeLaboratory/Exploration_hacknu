@@ -24,7 +24,8 @@ from
 meetings m
 left join places p on p.id_place = m.id_place
 left join users u1 on u1.id = m.id_first
-where m.id_first = {id}::text
+where m.id_second = {id}::text
+
 union all
 select
 
@@ -53,3 +54,4 @@ meetings m
 left join places p on p.id_place = m.id_place
 left join users u2 on u2.id = m.id_second
 where m.id_second = {id}::text
+where m.id_first = {id}::text
