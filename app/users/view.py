@@ -1,43 +1,12 @@
 from flask import request, jsonify
+from app import app
 from app.users.processor import Processor
-from app.base.helper import header_option
+from app.base.helper import header_option, check_session
 
 PREFIX = '/api/user'
 
 
-@app.route(PREFIX, methods=['GET'])
-def all_user():
-    return jsonify(Processor().users()), header_option()
-
-
-@app.route(PREFIX + '/profile', methods=['GET', 'OPTIONS'])
-def profile_user():
-    if request.method == 'OPTIONS':
-        print(request.method)
-        return jsonify({}), header_option()
-    id_user = session_to_id_user(request.headers)
-    answer = Processor().profile(id_user)
-    if answer:
-        answer = answer[0]
-    else:
-        answer = {}
-    return jsonify(answer), header_option()
-
-
-@app.route(PREFIX + '/<int:id_user>', methods=['GET', 'OPTIONS'])
-def profile(id_user):
-    if request.method == 'OPTIONS':
-        print(request.method)
-        return jsonify({}), header_option()
-    answer = Processor().profile(id_user)
-    if answer:
-        answer = answer[0]
-    else:
-        answer = {}
-    return jsonify(answer), header_option()
-
-
-@app.route(PREFIX + '/login', methods=['POST', 'OPTIONS'])
+@app.route(PREFIX + '/login', methods=['GET', 'OPTIONS'])
 def login():
     if request.method == 'OPTIONS':
         print(request.method)
@@ -47,11 +16,19 @@ def login():
     return jsonify(Processor().login(data)), header_option()
 
 
-@app.route(PREFIX + '/register', methods=['POST', 'OPTIONS'])
+@app.route(PREFIX + '/profile', methods=['GET', 'POST', 'OPTIONS'])
 def register():
     if request.method == 'OPTIONS':
         return jsonify({}), header_option()
-    data = request.json
+    data = {'id': check_session(request.headers)}
+    if request.method == 'GET':
+        return jsonify(Processor().get_profile(data)), header_option()
+    data.update(request.json)
     print(f'data = {data}')
-    return jsonify(Processor().create(data)), header_option()
+    return jsonify(Processor().update_profile(data)), header_option()
 
+
+@app.route(PREFIX + '/swipe', methods=['GET', 'OPTIONS'])
+def swipe():
+    if request.method == 'OPTIONS':
+        return jsonify({}), header_option()

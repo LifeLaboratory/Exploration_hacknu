@@ -20,7 +20,8 @@ class Processor:
         user = self.db.exec_by_file('select_user.sql', params)
         if not user:
             self.db.exec_by_file('insert_user.sql', params)
-
+            return self.get_profile(params)
+        self.db.exec_by_file('update_lat_log.sql', params)
         return True
 
     def swipe(self, data):
@@ -58,3 +59,24 @@ class Processor:
             'id': data.get('id'),
         }
         return self.db.exec_by_file('get_next_user.sql', params)
+
+    def get_profile(self, data):
+        params = {
+            'id': data.get('id')
+        }
+        return self.db.exec_by_file('select_user.sql', params)
+
+    def update_profile(self, data):
+        params = {
+            'id': data.get('id'),
+            'avatar': data.get('avatar'),
+            'description': data.get('description'),
+            'name': data.get('name'),
+            'lastname': data.get('lastname'),
+            'avatarThumb': data.get('avatarThumb'),
+            'phone': data.get('phone'),
+            'latitude': data.get('latitude'),
+            'longitude': data.get('longitude')
+        }
+        self.db.exec_by_file('update_user.sql', params)
+        return self.get_profile(params)
