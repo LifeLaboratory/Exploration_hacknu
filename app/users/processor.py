@@ -21,15 +21,27 @@ class Processor:
         if not user:
             self.db.exec_by_file('insert_user.sql', params)
             paramsss = self.get_profile(params)
-            paramsss['status'] = 'profile'
+            if isinstance(paramsss, list):
+                for par in paramsss:
+                    par['status'] = 'profile'
+            else:
+                paramsss['status'] = 'profile'
             return paramsss
         if self.get_meeting(params):
             paramsss = self.get_meeting(params)
-            paramsss['status'] = 'meeting'
+            if isinstance(paramsss, list):
+                for par in paramsss:
+                    par['status'] = 'meeting'
+            else:
+                paramsss['status'] = 'meeting'
             return paramsss
         self.db.exec_by_file('update_lat_log.sql', params)
         paramsss = self.get_next_user(params)
-        paramsss['status'] = 'search'
+        if isinstance(paramsss, list):
+            for par in paramsss:
+                par['status'] = 'search'
+        else:
+            paramsss['status'] = 'search'
         return paramsss
 
     def get_meeting(self, data):
