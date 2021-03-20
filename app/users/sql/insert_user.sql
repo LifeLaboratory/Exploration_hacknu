@@ -1,0 +1,24 @@
+insert into users
+(
+    id,
+    avatar,
+    description,
+    name,
+    lastname,
+    "avatarThumb",
+    phone,
+    latitude,
+    longitude
+)
+values
+(
+    {id},
+    {avatar},
+    {description},
+    {name},
+    {lastname},
+    {avatarThumb},
+    {phone},
+    {latitude}::float,
+    {longitude}::float
+)
