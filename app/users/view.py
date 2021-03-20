@@ -25,7 +25,8 @@ def register():
     data = {'id': check_session(request.headers)}
     if request.method == 'GET':
         return jsonify(Processor().get_profile(data)), header_option()
-    data.update(request.json)
+    if request.json:
+        data.update(request.json)
     print(f'data = {data}')
     return jsonify(Processor().update_profile(data)), header_option()
 
@@ -35,7 +36,8 @@ def swipe():
     if request.method == 'OPTIONS':
         return jsonify({}), header_option()
     data = {'id': check_session(request.headers)}
-    data.update(request.json)
+    if request.json:
+        data.update(request.json)
     return jsonify(Processor().swipe(data), header_option())
 
 
@@ -45,3 +47,11 @@ def get_next_user():
         return jsonify({}), header_option()
     data = {'id': check_session(request.headers)}
     return jsonify(Processor().get_next_user(data), header_option())
+
+
+@app.route(PREFIX + '/get_meeting', methods=['GET', 'OPTIONS'])
+def get_meeting():
+    if request.method == 'OPTIONS':
+        return jsonify({}), header_option()
+    data = {'id': check_session(request.headers)}
+    return jsonify(Processor().get_meeting(data), header_option())
