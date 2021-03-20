@@ -1,10 +1,9 @@
 from app.base.provider import Provider
-from app.base.helper import create_session
 
 
 class Processor:
     def __init__(self):
-        self.db = Provider('./users/sql')
+        self.db = Provider('app/users/sql')
 
     def login(self, data):
         params = {
@@ -47,7 +46,10 @@ class Processor:
                 }
                 return self.db.exec_by_file('insert_meeting.sql', params)
 
-        return self.get_next_user(data)
+        params = {
+            'id': data.get('id_first'),
+        }
+        return self.get_next_user(params)
 
     def get_next_user(self, data):
         params = {

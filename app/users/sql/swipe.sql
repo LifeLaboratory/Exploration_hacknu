@@ -1,4 +1,4 @@
-insert into like
+insert into likes
 (
     id_first,
     id_second,
