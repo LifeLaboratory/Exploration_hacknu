@@ -13,6 +13,8 @@ json_build_object(
     'place', json_build_object(
                     'id_place', p.id_place,
                     'link', p.link,
+                    'image', p.image,
+                    'description', p.description,
                     'latitude', p.latitude,
                     'longitude', p.longitude
     ),
