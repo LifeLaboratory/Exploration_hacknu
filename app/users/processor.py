@@ -20,29 +20,11 @@ class Processor:
         user = self.db.exec_by_file('select_user.sql', params)
         if not user:
             self.db.exec_by_file('insert_user.sql', params)
-            paramsss = self.get_profile(params)
-            if isinstance(paramsss, list):
-                for par in paramsss:
-                    par['status'] = 'profile'
-            else:
-                paramsss['status'] = 'profile'
-            return paramsss
+            return {'status': 'profile'}
         if self.get_meeting(params):
-            paramsss = self.get_meeting(params)
-            if isinstance(paramsss, list):
-                for par in paramsss:
-                    par['status'] = 'meeting'
-            else:
-                paramsss['status'] = 'meeting'
-            return paramsss
+            return {'status': 'meeting'}
         self.db.exec_by_file('update_lat_log.sql', params)
-        paramsss = self.get_next_user(params)
-        if isinstance(paramsss, list):
-            for par in paramsss:
-                par['status'] = 'search'
-        else:
-            paramsss['status'] = 'search'
-        return paramsss
+        return {'status': 'search'}
 
     def get_meeting(self, data):
         params = {
