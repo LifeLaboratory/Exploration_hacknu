@@ -22,7 +22,7 @@ class Processor:
             self.db.exec_by_file('insert_user.sql', params)
             return self.get_profile(params)
         self.db.exec_by_file('update_lat_log.sql', params)
-        return True
+        return self.get_next_user(params)
 
     def swipe(self, data):
         params = {
