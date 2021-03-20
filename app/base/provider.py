@@ -130,7 +130,7 @@ class Provider:
                 for alert in alert_items:
                     if alert in v:
                         args[k] = args[k].replace(alert, '')
-        query = query.format(**args)
+        query = query.format(**args).replace('None', 'Null')
         print(query)
         return Provider._exec(query)
 
