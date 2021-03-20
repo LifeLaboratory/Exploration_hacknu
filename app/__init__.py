@@ -1,3 +1,4 @@
-"""TODO"""
+from flask import Flask
 
-__author__ = 'Крылосов А.А.'
+
+app = Flask(__name__)
