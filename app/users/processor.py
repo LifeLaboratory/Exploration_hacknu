@@ -15,7 +15,9 @@ class Processor:
             'avatarThumb': data.get('avatarThumb'),
             'phone': data.get('phone'),
             'latitude': data.get('latitude'),
-            'longitude': data.get('longitude')
+            'longitude': data.get('longitude'),
+            'sex': data.get('sex'),
+            'sex_find': data.get('sex_find'),
         }
         user = self.db.exec_by_file('select_user.sql', params)
         if not user:
@@ -61,7 +63,8 @@ class Processor:
                 return self.get_meeting({'id': data.get('id')})
 
         params = {
-            'id': data.get('id')
+            'id': data.get('id'),
+            'sex_find': [data.get('sex_find')] or [True, False],
         }
         selected = self.db.exec_by_file('get_next_user.sql', params)
         if selected:
@@ -71,6 +74,7 @@ class Processor:
         params = {
             'id': data.get('id'),
             'limit': data.get('limit'),
+            'sex_find': [data.get('sex_find')] or [True, False],
         }
         selected = self.db.exec_by_file('get_next_user.sql', params)
 
@@ -99,7 +103,9 @@ class Processor:
             'avatarThumb': data.get('avatarThumb'),
             'phone': data.get('phone'),
             'latitude': data.get('latitude'),
-            'longitude': data.get('longitude')
+            'longitude': data.get('longitude'),
+            'sex': data.get('sex'),
+            'sex_find': data.get('sex_find'),
         }
         self.db.exec_by_file('update_user.sql', params)
         return self.get_profile(params)
