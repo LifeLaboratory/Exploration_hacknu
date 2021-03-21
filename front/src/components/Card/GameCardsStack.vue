@@ -1,6 +1,6 @@
 <template>
   <div v-if="queue === null">
-    Телочки закончились
+    Людей больше нет :c
   </div>
   <div v-else>
     <Tinder ref="tinder" key-name="id" :queue.sync="queue" :offset-y="10" @submit="onSubmit">
@@ -167,6 +167,7 @@ body {
   position: absolute;
   bottom: 20px;
   left: 10px;
+  text-shadow: black 0 0 28px;
   color: white;
   font-weight: 600;
   font-size: 24px;

@@ -1,16 +1,16 @@
 <template>
-    <div>
+    <div class="scroll">
         <div class="avatar"> 
             <img
                 :src="me.avatar"
             />
         </div>
+
         <div class="name">
             <div>{{me.name}}</div>
-            <div>{{me.description}}</div>
         </div>
-        <div style="margin-top: 30px">
-            <h2>Выберите ваш пол</h2>
+        <div style="margin-top: 10px">
+            <h2><b>Выберите ваш пол</b></h2>
             <b-button size="is-medium"
                 style="margin-top: 10px;"
                 :class="me.sex === true ? 'is-primary' : ''"
@@ -27,49 +27,35 @@
             </b-button>
         </div>
 
-        <div style="margin-top: 80px;">
-            <h2>Выберите пол желаемого партнера</h2>
+        <div style="margin-top: 30px;">
+            <h2><b>Выберите пол желаемого партнера</b></h2>
             <b-button size="is-medium"
                 style="margin-top: 10px;"
+                :class="me.sex_find === true ? 'is-primary' : ''"
                 @click="changeSexFind(true)"
                 icon-left="male">
                 Мужчина
             </b-button>
             <b-button size="is-medium"
                 style="margin-top: 10px;"
+                :class="me.sex_find === false ? 'is-primary' : ''"
                 @click="changeSexFind(false)"
                 icon-left="female">
                 Девушка
             </b-button>
         </div>
-        <div class="columns buttons">
-            <div class="column">
-                <b-button size="is-medium"
-                    icon-left="github-circle">
-                </b-button>
-                <div class="text">
-                    что-то еще
-                </div>
-            </div>
-            <div class="column">
-                <b-button size="is-big"
-                    icon-left="camera"
-                    style="background: linear-gradient(45deg, #d766ec, #7957d5); color: white; height: 60px; width: 60px;"
-                    >
-                </b-button>
-                <div class="text">
-                    Добавить аватар
-                </div>
-            </div>
-            <div class="column">
-                <b-button size="is-medium"
-                    icon-left="github-circle">
-                </b-button>
-                <div class="text">
-                    Изменить информацию
-                </div>
-            </div>
+        <div>
+            <b-field label="О себе" style="width: 80%; margin-left: 10%; margin-top: 20px">
+                <b-input maxlength="100" v-model="me.description " type="textarea"></b-input>
+            </b-field>
         </div>
+        <b-button size="is-big"
+            icon-left="save"
+            @click="snedNewInfo"
+            style="background: linear-gradient(45deg, #d766ec, #7957d5); color: white;"
+            >
+        Сохранить
+        </b-button>
     </div>
 </template>
 
@@ -80,7 +66,8 @@ import axios from 'axios'
 export default {
     data() {
         return {
-            me: {}
+            me: {},
+            desc: '123'
         }
     },
     mounted: async function () {
@@ -94,6 +81,16 @@ export default {
 
     },
     methods: {
+        async snedNewInfo() {
+            let d = await axios.post(`${ip}/user/profile`,
+            this.me,
+            {
+                headers: {
+                'session': localStorage.getItem('id')
+                }
+            })
+            alert('Настройки успешно изменены!')
+        },
         changeSex(sex) {
             this.me.sex = sex
         },
@@ -109,7 +106,7 @@ export default {
     }
 
     .avatar img {
-        margin-top: 50px;
+        margin-top: 12px;
         border-radius: 100px;
         width: 120px;
         height: 120px;
@@ -133,5 +130,9 @@ export default {
 
     .text {
         font-size: 15px;
+    }
+
+    .scroll {
+        overflow-y: auto;
     }
 </style>

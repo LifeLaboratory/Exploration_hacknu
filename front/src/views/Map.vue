@@ -1,7 +1,8 @@
 <template>
+    <div class="scroll">
     <section>
         <b-steps
-            style="margin-top: 30px"
+            style="margin-top: 15px"
             v-model="activeStep"
             :animated="isAnimated"
             :rounded="isRounded"
@@ -13,7 +14,7 @@
             <b-step-item step="1" label="У вас новая пара!" :clickable="isStepsClickable">
                 <h1 class="title has-text-centered"></h1>
                     <div class="card-flex profile-user">
-                        <img :src="data.user.avatar" />
+                        <img :src="data.user.avatar" style="height: 40vh" />
                         <div>
                             {{data.user.name}}
                         </div>
@@ -27,14 +28,8 @@
             </b-step-item>
 
             <b-step-item step="2" label="Место встречи" :clickable="isStepsClickable" :type="{'is-success': isProfileSuccess}">
-                <h1 class="title has-text-centered">Мы подобрали вам место для встречи!</h1>
+                <h1 class="title has-text-centered" style="font-size: 18px">Мы подобрали вам место для встречи!</h1>
                 <div class="card-flex profile-user">
-                    <b-button 
-                      type="is-primary is-light"
-                      @click="openLink(data.place.link)"
-                      style="margin-top: 15px; margin-bottom: 15px">
-                        Посмотреть на карте
-                    </b-button>
                     <img :src="data.place.image" />
                     <div>
                         {{data.place.description}}
@@ -81,6 +76,7 @@
             </template>
         </b-steps>
     </section>
+    </div>
 </template>
 
 <script>
