@@ -79,6 +79,16 @@ export default {
             })
             
             this.userList.push(d.data)
+            if (d.data.status === 'meeting') {
+                this.$buefy.dialog.confirm({
+                    title: 'Новая пара !',
+                    message: 'У вас появилось 1 совпадение, посетите страницу пар для этого',
+                    confirmText: 'Просмотреть',
+                    type: 'is-danger',
+                    hasIcon: false,
+                    onConfirm: () => this.$router.push({path: '/me/map'})
+                })
+            }
         },
         handleCardAccepted() {
             console.log("handleCardAccepted");
