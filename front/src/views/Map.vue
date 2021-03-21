@@ -24,6 +24,7 @@
                         <div>
                             <b>{{data.user.phone}}</b>
                         </div>
+                        <a style="margin-top: 10px; margin-bottom: 10px; font-size: 30px" href="https://i2.app.link/open_chat_with?user_id=52e82873-8965-11eb-bf02-3218c0ace7f0">Начать чат</a>
                     </div>
             </b-step-item>
 
