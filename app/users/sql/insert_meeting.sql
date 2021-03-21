@@ -10,6 +10,6 @@ values
     {id_first},
     {id_second},
     {id_place},
-    now()
+    {time_meeting}::timestamp
 )
 returning *

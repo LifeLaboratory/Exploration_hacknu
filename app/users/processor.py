@@ -1,4 +1,5 @@
 from app.base.provider import Provider
+import datetime
 
 
 class Processor:
@@ -53,10 +54,13 @@ class Processor:
 
             if status:
                 place_info = self.db.exec_by_file('get_place.sql', {})[0]
+                time_meeting = datetime.datetime.now()
+                time_meeting = time_meeting.replace(hour=time_meeting.hour + 4, minute=0, second=0, microsecond=0)
                 params = {
                     'id_first': data.get('id'),
                     'id_second': data.get('id_second'),
-                    'id_place': place_info.get('id_place')
+                    'id_place': place_info.get('id_place'),
+                    'time_meeting': time_meeting,
                 }
                 self.db.exec_by_file('insert_meeting.sql', params)
 
