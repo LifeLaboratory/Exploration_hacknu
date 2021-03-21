@@ -19,9 +19,14 @@ class TestAitu(TestCase):
         })
 
     def test_dev_2(self):
-        pprint(Processor().get_next_user({
-            'id': '1'
-        }))
+        five = Processor().get_next_user({
+            'id': 'null'
+        })
+        test = Processor().swipe({
+            'id': 'null',
+            'id_second': five[0].get('id'),
+            'status': True
+        })
 
     def test_dev_3(self):
         pprint(Processor().get_meeting({
