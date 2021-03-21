@@ -6,6 +6,11 @@
 
 
 <script>
+  export default {
+    async mounted() {
+      await aituBridge.getGeo();
+    }
+  }
 </script>
 
 <style>
