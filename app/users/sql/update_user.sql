@@ -8,6 +8,8 @@ SET
   avatarThumb = {avatarThumb},
   phone = {phone},
   latitude = {latitude}::float,
-  longitude = {longitude}::float
+  longitude = {longitude}::float,
+  sex = {sex},
+  sex_find = {sex_find}
 WHERE id = {id}
 RETURNING id;
