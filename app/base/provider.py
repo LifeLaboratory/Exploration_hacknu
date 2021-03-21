@@ -123,7 +123,7 @@ class Provider:
         :return:
         """
         for k, v in args.items():
-            alert_items = ['"', ';', '-', '*', 'drop', 'select', '=', 'insert']
+            alert_items = ['"', ';', '*', 'drop', 'select', '=', 'insert']
             if isinstance(v, str):
                 if "'" not in args[k]:
                     args[k] = f"'{args[k]}'"
