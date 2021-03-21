@@ -60,6 +60,7 @@
 <script>
 import {ip} from '@/cfg/setting.js'
 import axios from 'axios'
+
 export default {
     data() {
         return {
@@ -69,6 +70,7 @@ export default {
         }
     },
     mounted: async function () {
+        await this.$store.dispatch('sendProfile')
         let d = await axios.get(`${ip}/user/profile`,
         {
             headers: {

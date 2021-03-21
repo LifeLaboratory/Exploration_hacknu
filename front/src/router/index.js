@@ -20,7 +20,6 @@ const routes = [
     path: '/me',
     name: 'Me',
     beforeEnter: ( (to, from, next) => {
-      store.dispatch('sendProfile')
       next()
     }),
     component: () => import('../nav/mainNavigation.vue'),
