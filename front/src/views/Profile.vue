@@ -51,7 +51,7 @@
         </div>
         <b-button size="is-big"
             icon-left="save"
-            @click="snedNewInfo"
+            @click="snedNewInfo()"
             style="background: linear-gradient(45deg, #d766ec, #7957d5); color: white;"
             >
         Сохранить
@@ -60,7 +60,6 @@
 </template>
 
 <script>
-import aituBridge from '@btsd/aitu-bridge'
 import {ip} from '@/cfg/setting.js'
 import axios from 'axios'
 export default {
