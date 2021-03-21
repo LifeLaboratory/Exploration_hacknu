@@ -1,14 +1,21 @@
 <template>
     <div>
         <div class="navBar">
-            <div class="navItem">
+            <div class="navItem" @click="goTo('search')">
                 <b-icon
                     pack="fas"
-                    icon="user"
+                    icon="search"
                     size="is-small"
                 />
             </div>
-            <div class="navItem">
+            <div class="navItem" @click="goTo('map')">
+                <b-icon
+                    pack="fas"
+                    icon="map"
+                    size="is-small"
+                />
+            </div>
+            <div class="navItem" @click="goTo('profile')">
                 <b-icon
                     pack="fas"
                     icon="user"
@@ -21,6 +28,17 @@
         </div>
     </div>
 </template>
+
+<script >
+import axios from 'axios'
+export default {
+    methods: {
+        goTo (link) {
+            this.$router.push({path: `/me/${link}`})
+        }
+    }
+}
+</script>
 
 <style>
 .icon.is-small {
@@ -37,7 +55,7 @@
 
 .navBar div {
     display: inline-block;
-    width: 49%;
+    width: 33%;
 }
 
 .navItem:hover {

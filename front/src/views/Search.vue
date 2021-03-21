@@ -1,11 +1,13 @@
 <template>
     <div class="GameCards">
-        <GameCardsStack />
+        <GameCardsStack :data="userList" v-if="userList.length > 2" @selectPair="getNewPair" />
     </div>
 </template>
 <script>
 import GameCardsStack from "../components/Card/GameCardsStack";
-
+import aituBridge from '@btsd/aitu-bridge'
+import axios from 'axios'
+import {ip} from '@/cfg/setting.js'
 export default {
     name: "App",
     components: {
@@ -14,7 +16,8 @@ export default {
 
     data() {
         return {
-        visibleCards: [
+            can: false,
+            visibleCards: [
             {
                 id: 1,
                 photo: '',
@@ -43,11 +46,37 @@ export default {
                 age: 20,
                 interess: 'swinger'
             }
-        ]
-        };
+            ],
+            userList: [],
+            data: {}
+        }
     },
+    async mounted () {
+        let d = await axios.get(`${ip}/user/get_next_user`,
+        {
+          headers: {
+            'session': localStorage.getItem('id')
+          }
+        })
+        this.userList = d.data
 
+
+    },
     methods: {
+        async getNewPair(data) {
+            let d = await axios.post(`${ip}/user/swipe`,
+            {
+                id_second: data.item.id,
+                status: data.type
+            },
+            {
+            headers: {
+                'session': localStorage.getItem('id')
+            }
+            })
+            
+            this.userList.push(d.data)
+        },
         handleCardAccepted() {
             console.log("handleCardAccepted");
         },

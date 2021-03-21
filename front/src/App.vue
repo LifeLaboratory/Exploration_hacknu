@@ -6,31 +6,10 @@
 
 
 <script>
-import aituBridge from '@btsd/aitu-bridge'
-export default {
-  created () {
-
-    async function getData() {
-      console.log('ebash')
-      try {
-        // invoke method
-        alert(data)
-        const data = await aituBridge.getMe();
-        console.log('ok', data)
-        alert(data)
-        // handle data
-      } catch (e) {
-        // handle error
-        console.log('err', e);
-      }
-    }
-    getData()
-  }
-}
 </script>
 
 <style>
-html {
+html, body {
   background-color: #eae4fb !important;
 }
 

@@ -1,28 +1,27 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+import aituBridge from '@btsd/aitu-bridge'
+import axios from 'axios'
+import store from '../store/index';
+
 
 Vue.use(VueRouter)
+
 
 const routes = [
   {
     path: '/',
-    name: 'Home',
-    component: Home
-  },
-  {
-    path: '/about',
-    name: 'About',
-    component: () => import('../views/About.vue')
-  },
-  {
-    path: '/login',
-    name: 'Login',
-    component: () => import('../views/Login.vue')
+    beforeEnter: ((to, from, next) => {
+      next('/me')
+    })
   },
   {
     path: '/me',
     name: 'Me',
+    beforeEnter: ( (to, from, next) => {
+      store.dispatch('sendProfile')
+      next()
+    }),
     component: () => import('../nav/mainNavigation.vue'),
     children: [
       {
@@ -31,10 +30,25 @@ const routes = [
         component: () => import('../views/Profile.vue')
       },
       {
+        path: 'profile',
+        name: 'Profile_',
+        component: () => import('../views/Profile.vue')
+      },
+      {
         path: 'search',
         name: 'Search',
         component: () => import('../views/Search.vue')
+      },
+      {
+        path: 'map',
+        name: 'Map',
+        component: () => import('../views/Map.vue')
       }
+      /*{
+        path: 'meeting',
+        name: 'Search',
+        component: () => import('../views/Search.vue')
+      }*/
     ]
 
   }

@@ -1,22 +1,27 @@
 <template>
-  <div id="app">
+  <div v-if="queue === null">
+    Телочки закончились
+  </div>
+  <div v-else>
     <Tinder ref="tinder" key-name="id" :queue.sync="queue" :offset-y="10" @submit="onSubmit">
       <template slot-scope="scope">
         <div
           class="pic"
           :style="{
-            'background-image': `url(https://cn.bing.com//th?id=OHR.${scope.data.id}_UHD.jpg&pid=hp&w=720&h=1280&rs=1&c=4&r=0)`
+            'background-image': `url(${scope.data.avatar})`
           }"
         />
+        <div class="bottom-text">
+          <div> {{scope.data.name}}, {{scope.data.age}} </div>
+          <div> {{scope.data.description}} </div>
+        </div>
       </template>
-      <img class="like-pointer" slot="like" src="@/assets/like-txt.png">
-      <img class="nope-pointer" slot="nope" src="@/assets/nope-txt.png">
-      <img class="super-pointer" slot="super" src="@/assets/super-txt.png">
+      <img class="like-pointer" :slot="false" src="@/assets/nope-txt.png">
+      <img class="super-pointer" :slot="true" src="@/assets/like-txt.png">
     </Tinder>
     <div class="btns">
-      <img src="@/assets/nope.png" @click="decide('nope')">
-      <img src="@/assets/super-like.png" @click="decide('super')">
-      <img src="@/assets/like.png" @click="decide('like')">
+      <img src="@/assets/nope.png" @click="decide(false)">
+      <img src="@/assets/like-txt.png" @click="decide(true)">
     </div>
   </div>
 </template>
@@ -27,6 +32,9 @@ import source from "@/bing";
 
 export default {
   name: "App",
+  props: {
+    data: Array
+  },
   components: { Tinder },
   data: () => ({
     queue: [],
@@ -35,19 +43,23 @@ export default {
   created() {
     this.mock();
   },
+  watch: {
+    data: function () {
+      //this.queue = this.data
+      this.mock();
+    }
+  },
   methods: {
     mock(count = 5) {
-      const list = [];
-      for (let i = 0; i < count; i++) {
-        list.push({ id: source[this.offset] });
-        this.offset++;
-      }
-      this.queue = this.queue.concat(list);
+      console.log(this.queue)
+      this.queue = this.data
     },
-    onSubmit({ item }) {
-      if (this.queue.length < 3) {
-        this.mock();
-      }
+    onSubmit({type, item}) {
+      this.$emit('selectPair', {
+        type: type,
+        item: item
+      })
+      this.mock();
     },
     decide (choice) {
       this.$refs.tinder.decide(choice)
@@ -73,10 +85,10 @@ body {
   z-index: 1;
   left: 0;
   right: 0;
-  top: 23px;
+  top: 80px;
   margin: auto;
-  width: calc(100% - 20px);
-  height: calc(100% - 23px - 65px - 47px - 16px);
+  width: calc(50% - 20px);
+  height: calc(90% - 23px - 65px - 47px - 16px);
   min-width: 300px;
   max-width: 355px;
 }
@@ -148,5 +160,15 @@ body {
 
 .btns img:nth-last-child(1) {
   margin-right: 0;
+}
+
+.bottom-text {
+  text-align: left;
+  position: absolute;
+  bottom: 20px;
+  left: 10px;
+  color: white;
+  font-weight: 600;
+  font-size: 24px;
 }
 </style>

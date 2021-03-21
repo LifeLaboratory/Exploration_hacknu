@@ -1,0 +1,1 @@
+export const ip = 'https://2f249524a186.ngrok.io/api'
