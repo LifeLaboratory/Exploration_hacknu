@@ -68,7 +68,7 @@ class Processor:
 
         params = {
             'id': data.get('id'),
-            'sex_find': [data.get('sex_find')] or [True, False],
+            'sex_find': [data.get('sex_find')] if data.get('sex_find') is not None else [True, False]
         }
         selected = self.db.exec_by_file('get_next_user.sql', params)
         if selected:
@@ -78,7 +78,7 @@ class Processor:
         params = {
             'id': data.get('id'),
             'limit': data.get('limit'),
-            'sex_find': [data.get('sex_find')] or [True, False],
+            'sex_find': [data.get('sex_find')] if data.get('sex_find') is not None else [True, False]
         }
         selected = self.db.exec_by_file('get_next_user.sql', params)
 
