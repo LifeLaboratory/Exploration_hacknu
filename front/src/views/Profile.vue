@@ -46,15 +46,13 @@
         </div>
         <div>
             <b-field label="О себе" style="width: 80%; margin-left: 10%; margin-top: 20px">
-                <b-input maxlength="100" v-model="me.description " type="textarea"></b-input>
+                <b-input maxlength="100" v-model="me.description" type="textarea"></b-input>
             </b-field>
         </div>
-        <b-button size="is-big"
-            icon-left="save"
-            @click="snedNewInfo()"
-            style="background: linear-gradient(45deg, #d766ec, #7957d5); color: white;"
-            >
-        Сохранить
+        <div class="greenColors" v-if="show"> Настройки успешно сохранены !</div>
+        <br />
+        <b-button @click="saveProf()" icon-left="save" style="background: #a31f63; color: white">
+            <b>Сохранить</b>
         </b-button>
     </div>
 </template>
@@ -66,6 +64,7 @@ export default {
     data() {
         return {
             me: {},
+            show: false,
             desc: '123'
         }
     },
@@ -88,13 +87,18 @@ export default {
                 'session': localStorage.getItem('id')
                 }
             })
-            alert('Настройки успешно изменены!')
+        },
+        async saveProf() {
+            await this.snedNewInfo()
+            this.show = true
         },
         changeSex(sex) {
             this.me.sex = sex
+            this.snedNewInfo()
         },
         changeSexFind(sex) {
             this.me.sex_find = sex
+            this.snedNewInfo()
         }
     }
 }
@@ -133,5 +137,9 @@ export default {
 
     .scroll {
         overflow-y: auto;
+    }
+
+    .greenColors {
+        color: green
     }
 </style>
