@@ -34,7 +34,7 @@ import axios from 'axios'
 export default {
     data() {
         return{
-            active: 'search'
+            active: 'profile'
         }
     },
     methods: {
