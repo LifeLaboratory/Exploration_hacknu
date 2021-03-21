@@ -80,6 +80,7 @@ export default {
             
             this.userList.push(d.data)
             if (d.data.status === 'meeting') {
+                aituBridge.vibrate([500, 200, 100]);
                 this.$buefy.dialog.confirm({
                     title: 'Новая пара !',
                     message: 'У вас появилось 1 совпадение, посетите страницу пар для этого',

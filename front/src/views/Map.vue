@@ -24,7 +24,7 @@
                         <div>
                             <b>{{data.user.phone}}</b>
                         </div>
-                        <a style="margin-top: 10px; margin-bottom: 10px; font-size: 30px" href="https://i2.app.link/open_chat_with?user_id=52e82873-8965-11eb-bf02-3218c0ace7f0">Начать чат</a>
+                        <a style="margin-top: 10px; margin-bottom: 10px; font-size: 30px" :href="generateNotif(data.user.id)">Начать чат</a>
                     </div>
             </b-step-item>
 
@@ -116,6 +116,9 @@ export default {
   methods: {
       openLink(link) {
           window.open(link)
+      },
+      generateNotif (id) {
+          return `https://i2.app.link/open_chat_with?user_id=${id}`
       },
       formatDate(date) {
           let d = new Date(date)
