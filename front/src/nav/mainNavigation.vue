@@ -1,25 +1,25 @@
 <template>
     <div>
         <div class="navBar">
-            <div class="navItem" @click="goTo('search')">
+            <div class="navItem" :class="active === 'search' ? 'active': ''" @click="goTo('search')">
                 <b-icon
                     pack="fas"
                     icon="search"
-                    size="is-small"
+                    size="is-big"
                 />
             </div>
-            <div class="navItem" @click="goTo('map')">
+            <div class="navItem" :class="active === 'map' ? 'active': ''" @click="goTo('map')">
                 <b-icon
                     pack="fas"
                     icon="map"
-                    size="is-small"
+                    size="is-big"
                 />
             </div>
-            <div class="navItem" @click="goTo('profile')">
+            <div class="navItem" :class="active === 'profile' ? 'active': ''" @click="goTo('profile')">
                 <b-icon
                     pack="fas"
                     icon="user"
-                    size="is-small"
+                    size="is-big"
                 />
             </div>
         </div>
@@ -32,9 +32,15 @@
 <script >
 import axios from 'axios'
 export default {
+    data() {
+        return{
+            active: 'search'
+        }
+    },
     methods: {
         goTo (link) {
             this.$router.push({path: `/me/${link}`})
+            this.active = link
         }
     }
 }
@@ -60,5 +66,11 @@ export default {
 
 .navItem:hover {
     cursor: pointer;
+}
+
+.active {
+    color: #a21f64;
+    border-bottom: 2px solid #a21f64;
+    height: 100%;
 }
 </style>

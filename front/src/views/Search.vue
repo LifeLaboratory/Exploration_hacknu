@@ -1,6 +1,9 @@
 <template>
     <div class="GameCards">
-        <GameCardsStack :data="userList" v-if="userList.length > 2" @selectPair="getNewPair" />
+        <GameCardsStack :data="userList" v-if="userList.length > 3" @selectPair="getNewPair" />
+        <div v-else>
+            Пользователей больше нет
+        </div>
     </div>
 </template>
 <script>

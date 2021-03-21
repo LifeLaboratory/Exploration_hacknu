@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import aituBridge from '@btsd/aitu-bridge'
 import axios from 'axios'
 import store from '../store/index';
+import { createRouter, createWebHistory } from '@ionic/vue-router';
 
 
 Vue.use(VueRouter)

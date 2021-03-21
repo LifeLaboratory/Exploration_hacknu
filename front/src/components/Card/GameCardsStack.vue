@@ -1,9 +1,9 @@
 <template>
-  <div v-if="queue === null">
+  <div v-if="queue === []">
     Людей больше нет :c
   </div>
   <div v-else>
-    <Tinder ref="tinder" key-name="id" :queue.sync="queue" :offset-y="10" @submit="onSubmit">
+    <Tinder ref="tinder" key-name="unic_uuid" :queue.sync="queue" :offset-y="10" @submit="onSubmit">
       <template slot-scope="scope">
         <div
           class="pic"
@@ -50,8 +50,22 @@ export default {
     }
   },
   methods: {
+    makeuuid() {
+      var result           = '';
+      var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+      var charactersLength = characters.length;
+      for ( var i = 0; i < length; i++ ) {
+          result += characters.charAt(Math.floor(Math.random() * charactersLength));
+      }
+      return result;
+    },
     mock(count = 5) {
-      console.log(this.queue)
+      console.log(this.data)
+      let d = this.queue.find(el => el.id === data.id)
+      console.log(d)
+      if (this.data === null) {
+        console.log('123')
+      }
       this.queue = this.data
     },
     onSubmit({type, item}) {
