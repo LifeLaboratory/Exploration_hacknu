@@ -65,11 +65,11 @@ class Processor:
                 self.db.exec_by_file('insert_meeting.sql', params)
 
                 return self.get_meeting({'id': data.get('id')})
-
         params = {
             'id': data.get('id'),
-            'sex_find': [data.get('sex_find')] if data.get('sex_find') is not None else [True, False]
         }
+        sex_find = self.db.exec_by_file('select_user.sql', params)[0].get('sex_find')
+        params['sex_find'] = [sex_find] if sex_find is not None else [True, False]
         selected = self.db.exec_by_file('get_next_user.sql', params)
         if selected:
             return selected[0]
@@ -78,8 +78,9 @@ class Processor:
         params = {
             'id': data.get('id'),
             'limit': data.get('limit'),
-            'sex_find': [data.get('sex_find')] if data.get('sex_find') is not None else [True, False]
         }
+        sex_find = self.db.exec_by_file('select_user.sql', params)[0].get('sex_find')
+        params['sex_find'] = [sex_find] if sex_find is not None else [True, False]
         selected = self.db.exec_by_file('get_next_user.sql', params)
 
         ids_likes = [select.get('id') for select in selected]
