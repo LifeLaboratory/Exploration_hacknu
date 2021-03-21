@@ -66,8 +66,6 @@ class Processor:
         next = self.get_next_user(params)
         if next:
             return next[0]
-        else:
-            return self.db.exec_by_file('get_random_user.sql', params)[0]
 
     def get_next_user(self, data):
         params = {
