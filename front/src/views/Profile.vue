@@ -71,6 +71,7 @@ export default {
         }
     },
     mounted: async function () {
+        await aituBridge.getGeo();
         let d = await axios.get(`${ip}/user/profile`,
         {
             headers: {
