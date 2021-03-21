@@ -72,7 +72,17 @@ class Processor:
             'id': data.get('id'),
             'limit': data.get('limit'),
         }
-        return self.db.exec_by_file('get_next_user.sql', params)
+        selected = self.db.exec_by_file('get_next_user.sql', params)
+
+        if len(selected) == 5:
+            ids_likes = [select.get('id') for select in selected]
+            params = {
+                'ids': [data.get('id')] * len(ids_likes),
+                'ids_likes': ids_likes,
+
+            }
+            self.db.exec_by_file('insert_5_likes.sql', params)
+        return selected
 
     def get_profile(self, data):
         params = {
